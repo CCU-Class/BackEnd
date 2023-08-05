@@ -1,0 +1,22 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.3.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "mysql2": "^3.5.2",
+    "pg": "^8.11.2"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.2"
+  }
+}
