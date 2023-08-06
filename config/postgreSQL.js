@@ -6,12 +6,12 @@ const connection = new Client({
     ssl: { rejectUnauthorized: false }
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-    } else {
-        console.log('Connected to the database successfully!');
-    }
-});
+// connection.connect((err) => {
+//     if (err) {
+//         console.error('Error connecting to the database:', err);
+//     } else {
+//         console.log('Connected to the database successfully!');
+//     }
+// });
 
 module.exports = connection;

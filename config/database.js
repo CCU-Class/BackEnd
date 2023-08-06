@@ -1,5 +1,3 @@
-var mysql = require('../config/mysqlDB');
-var postgre = require('../config/postgreSQL');
 
 var connection = null;
 if(process.env.USING_DATABASE== "postgre"){
