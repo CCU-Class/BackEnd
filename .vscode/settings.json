@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/50b92b2f-a2ae-4363-b0a9-e6d82a5174ef/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/ccutest",
+  "appService.deploySubpath": "."
+}

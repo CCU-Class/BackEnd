@@ -21,10 +21,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // http request 放這裡
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+//   next();
+// });
+const cors = require('cors');
+
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'http://localhost:5585']; // 替換成你本機端的網域
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use("/searchCourse", searchCourseRouter);
