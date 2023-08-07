@@ -7,6 +7,7 @@ require('dotenv').config();
 
 var indexRouter = require('./routes/index.js');
 var searchCourseRouter = require('./routes/searchCourse.js');
+var recordrouter = require('./routes/record.js');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use("/searchCourse", searchCourseRouter);
+app.use("/record", recordrouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
