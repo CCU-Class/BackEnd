@@ -1,0 +1,16 @@
+SERVER_PORT=
+#ccu course url
+CCU_COURSE_URL=https://kiki.ccu.edu.tw/~ccmisp06/Course/
+
+#using database : mysql or postgre
+USING_DATABASE=
+
+#mysql
+MYSQL_HOST=
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_DATABASE=
+MYSQL_PORT=
+MYSQL_CLASSNAME_NUMBERS_LIMIT=
+#postgre
+DATABASE_URL=
