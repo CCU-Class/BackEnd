@@ -28,8 +28,8 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-
-server.listen(port, ()=>{
+const publicIP = process.env.PUBLICIP;
+server.listen(port, publicIP, ()=>{
   if(database == null){
     console.log('Database Not connected');
   }
