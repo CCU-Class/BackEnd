@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../controllers/courseSearchController');
+var controller = require('../controllers/controllerCourseSearch');
 const regex = require('../utils/myRegex');
 
 router.get('/', async function(req, res) {

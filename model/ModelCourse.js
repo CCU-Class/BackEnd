@@ -9,7 +9,7 @@ const model = {
             //console.log("try query...");
             database.query(str, (err, result, fields) => {
                 if (err) {
-                    //console.log(err);
+                    console.log(err);
                     reject(err);
                 } else {
                     //console.log(result);
@@ -24,12 +24,4 @@ const model = {
     }
 }
 
-
-const controller = {
-    async searchCourses(keyword){
-        let result = await model.getCourses(keyword);
-        if(process.env.USING_DATABASE== "postgre") return result.rows;
-        return result
-    }
-};
-module.exports = controller;
+module.exports = model;
