@@ -17,3 +17,7 @@ DATABASE_URL=
 
 #this_device_ip
 PUBLICIP=
+
+
+#token
+JWT_KEY
