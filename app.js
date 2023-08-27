@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index.js');
 var searchCourseRouter = require('./routes/routerSearchCourse.js');
-var recordrouter = require('./routes/routerRecord.js');
+var recordRouter = require('./routes/routerRecord.js');
 var loginRouter = require('./routes/routerLogin.js');
 var verifyTokenRouter = require('./routes/routerVaritfyToken.js');
 
@@ -49,7 +49,7 @@ app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use("/searchCourse", searchCourseRouter);
-app.use("/record", recordrouter);
+app.use("/record", recordRouter);
 app.use("/login", loginRouter);
 app.use("/verifyToken", verifyTokenRouter);
 

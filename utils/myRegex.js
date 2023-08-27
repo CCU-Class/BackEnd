@@ -4,6 +4,11 @@ function checkChineseEnglishNum(str){
     return regex.test(str);
 }
 
+//檢測是否為數字
+function checkNum(str){
+    return /^\d+$/.test(str);
+}
 module.exports = {
-    checkChineseEnglishNum: checkChineseEnglishNum
+    checkChineseEnglishNum: checkChineseEnglishNum,
+    checkNum: checkNum,
 }
