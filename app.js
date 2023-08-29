@@ -11,6 +11,7 @@ var searchCourseRouter = require('./routes/routerSearchCourse.js');
 var recordRouter = require('./routes/routerRecord.js');
 var loginRouter = require('./routes/routerLogin.js');
 var verifyTokenRouter = require('./routes/routerVaritfyToken.js');
+var webStatisticRouter = require('./routes/routerWebStatistic.js');
 
 var app = express();
 
@@ -52,6 +53,7 @@ app.use("/searchCourse", searchCourseRouter);
 app.use("/record", recordRouter);
 app.use("/login", loginRouter);
 app.use("/verifyToken", verifyTokenRouter);
+app.use("/statistic",webStatisticRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

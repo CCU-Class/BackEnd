@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const regex = require('../utils/myRegex');
-const controller = require('../controllers/controllerCourseRecord.js');
+const controllerCourseRecord = require('../controllers/controllerCourseRecord.js');
+const controllerVisitWebsite = require('../controllers/controllerVisitWebsite.js');
 
 
 router.get('/userSelectClass', async function(req, res) {
@@ -11,11 +12,21 @@ router.get('/userSelectClass', async function(req, res) {
   // console.log(`userSelectClass, id: ${id}, teacher: ${teacher}`);
   // console.log(`regex:\nregex.checkNum(id)=${regex.checkNum(id)},\nregex.checkChineseEnglishNum(teacher)=${regex.checkChineseEnglishNum(teacher)}`)
   if(regex.checkNum(id) && regex.checkChineseEnglishNum(teacher)){
-    let result = await controller.recordCourse(course);
+    let result = await controllerCourseRecord.recordCourse(course);
     console.log(`result: ${result}`);
     if(result) res.send(true);
     else res.send(false);
   }else res.send(false);
+});
+
+
+router.get('/visistWebsite', async function(req, res){
+  let result = await controllerVisitWebsite.record();
+  if(result){
+    res.send(true);
+  }else{
+    res.send(false);
+  } 
 });
 
 module.exports = router;
