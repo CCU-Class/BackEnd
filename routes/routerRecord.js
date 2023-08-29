@@ -21,7 +21,15 @@ router.get('/userSelectClass', async function(req, res) {
 
 
 router.get('/visistWebsite', async function(req, res){
-  let result = await controllerVisitWebsite.record();
+  let web_name = null;
+  try{
+    if(req.query.web_name!=undefined||String(req.query.web_name).trim() != '')web_name = String(req.query.web_name).trim();
+  }catch(err){
+    console.log(err);
+    res.send(err);
+  }
+  if(web_name == undefined || web_name=="undefined" || web_name == null || web_name == "")web_name = "";
+  let result = await controllerVisitWebsite.record(web_name);
   if(result){
     res.send(true);
   }else{
