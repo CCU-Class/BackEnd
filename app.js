@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 const cors = require('cors');
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'http://localhost:5585']; // 替換成你本機端的網域
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'http://localhost:5585', 'https://ccuclass.com', 'https://test.ccuclass.com']; // 替換成你本機端的網域
 
 const corsOptions = {
   origin: function (origin, callback) {

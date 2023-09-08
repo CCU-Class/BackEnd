@@ -43,7 +43,7 @@ error_message = []
 
 links = get_a_link(url1)
 
-
+course = os.getenv("MYSQL_COURSE_TABLE"); 
 # 在所有的子網址上爬取資料
 for j in links:
 
@@ -67,11 +67,11 @@ for j in links:
             credit = "'" + row[7] + "'";
         try:
             #若有id,class_name,class_time,class_room相同的資料，則不新增
-            cur.execute(f"select * from course where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};")
+            cur.execute(f"select * from {course} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};")
             dd = cur.fetchone()
             if dd != None:
                 continue
-            command = f"INSERT INTO course (id, class_name, teacher, class_time, class_room, credit) VALUES ( {a}, {b}, {c}, {d}, {e}, {credit});"
+            command = f"INSERT INTO {course} (id, class_name, teacher, class_time, class_room, credit, selection_count) VALUES ( {a}, {b}, {c}, {d}, {e}, {credit}, 0);"
             cur.execute(command)
             conn.commit()
             # print新增成功的資料
