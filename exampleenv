@@ -1,24 +1,26 @@
-SERVER_PORT=
+SERVER_PORT=3000
 #ccu course url
 CCU_COURSE_URL=https://kiki.ccu.edu.tw/~ccmisp06/Course/
 
 #using database : mysql or postgre
-USING_DATABASE=
+USING_DATABASE=mysql
 
 #mysql
-MYSQL_HOST=
-MYSQL_USER=
-MYSQL_PASSWORD=
-MYSQL_DATABASE=
-MYSQL_PORT=
-MYSQL_CLASSNAME_NUMBERS_LIMIT=
+MYSQL_HOST=localhost
+MYSQL_USER='root'
+MYSQL_PASSWORd=
+MYSQL_DATABASE=ccu
+MYSQL_PORT=3306
+MYSQL_CLASSNAME_NUMBERS_LIMIT=1000
+MYSQL_TABLE=course112_1
+MYSQL_COURSE_TABLE=course112_1
 #postgre
-DATABASE_URL=
-MYSQL_COURSE_TABLE=
+DATABASE_URL=postgres://xkzitdppspvlqj:2e179a84a69ec3bbd56b5289e4f275e6746a4384bc7da2271988053b7b0508e3@ec2-3-212-70-5.compute-1.amazonaws.com:5432/d33nur5kufkbpf
+
+#token
+JWT_KEY=
 
 #this_device_ip
 PUBLICIP=
 
 
-#token
-JWT_KEY
