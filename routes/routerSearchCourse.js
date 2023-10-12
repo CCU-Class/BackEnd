@@ -3,6 +3,32 @@ var router = express.Router();
 var controller = require('../controllers/controllerCourseSearch');
 const regex = require('../utils/myRegex');
 
+
+router.get('/ByTime', async function(req, res) {
+  const day = req.query.day;
+  const start = req.query.start;
+  const end = req.query.end;
+  //=============讓controller幫我們查==========
+  var array = null;
+  if(regex.checkChineseEnglishNum(day)){
+    array = await controller.searchCoursesByTime(day, start, end);
+  }
+  //console.log(array);
+  res.send(array);
+});
+
+router.get('/ByDay', async function(req, res) {
+  const day = req.query.day;
+
+  //=============讓controller幫我們查==========
+  var array = null;
+  if(regex.checkChineseEnglishNum(day)){
+    array = await controller.searchCoursesByDay(day);
+  }
+  //console.log(array);
+  res.send(array);
+});
+
 router.get('/', async function(req, res) {
   const keyword = req.query.keyword;
   console.log(keyword)
@@ -18,6 +44,7 @@ router.get('/', async function(req, res) {
   //console.log(array);
   res.send(array);
 });
+
 
 
 module.exports = router;

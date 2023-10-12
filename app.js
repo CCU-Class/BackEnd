@@ -46,7 +46,7 @@ const corsOptions = {
   },
 };
 
-app.use(cors(allowedOrigins));
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use("/searchCourse", searchCourseRouter);

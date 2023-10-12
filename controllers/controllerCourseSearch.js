@@ -4,6 +4,16 @@ const controller = {
         let result = await model.getCourses(keyword);
         if(process.env.USING_DATABASE== "postgre") return result.rows;
         return result
+    },
+    async searchCoursesByDay(day){
+        let result = await model.getCoursesByDay(day);
+        if(process.env.USING_DATABASE== "postgre") return result.rows;
+        return result
+    },
+    async searchCoursesByTime(day, start, end){
+        let result = await model.getCoursesByTime(day, start, end);
+        if(process.env.USING_DATABASE== "postgre") return result.rows;
+        return result
     }
 };
 module.exports = controller;
