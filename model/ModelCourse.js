@@ -80,6 +80,25 @@ const model = {
             }
         }
         return classArray;
+    },
+    async getCoursesByTeacher(Teacher){
+        //會根據class_name的比對位置來排序 越先比對到的越前面
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
+        
+        let str = "select * from ?? where \`teacher\` like concat('%', ?, '%') order by \`selection_count\` desc limit ?;";
+        //console.log(str);
+        return new Promise((resolve, reject) => {
+            database.query(str, [table, Teacher,limit], (err, result, fields) => {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    //console.log(result);
+                    resolve(result);
+                }
+            });
+        });
     }
 }
 

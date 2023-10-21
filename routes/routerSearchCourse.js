@@ -29,6 +29,17 @@ router.get('/ByDay', async function(req, res) {
   res.send(array);
 });
 
+router.get('/ByTeacher', async function(req, res) {
+  const Teacher = req.query.Teacher;
+  //=============讓controller幫我們查==========
+  var array = null;
+  if(regex.checkChineseEnglishNum(Teacher)){
+    array = await controller.searchCoursesByTeacher(Teacher);
+  }
+  //console.log(array);
+  res.send(array);
+});
+
 router.get('/', async function(req, res) {
   const keyword = req.query.keyword;
   console.log(keyword)

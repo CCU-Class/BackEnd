@@ -14,6 +14,11 @@ const controller = {
         let result = await model.getCoursesByTime(day, start, end);
         if(process.env.USING_DATABASE== "postgre") return result.rows;
         return result
+    },
+    async searchCoursesByTeacher(Teacher){
+        let result = await model.getCoursesByTeacher(Teacher);
+        if(process.env.USING_DATABASE== "postgre") return result.rows;
+        return result
     }
 };
 module.exports = controller;
