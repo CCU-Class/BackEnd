@@ -67,11 +67,11 @@ for j in links:
             credit = "'" + row[7] + "'";
         try:
             #若有id,class_name,class_time,class_room相同的資料，則不新增
-            cur.execute(f"select * from course where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};")
+            cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};")
             dd = cur.fetchone()
             if dd != None:
                 continue
-            command = f"INSERT INTO course (id, class_name, teacher, class_time, class_room, credit) VALUES ( {a}, {b}, {c}, {d}, {e}, {credit});"
+            command = f"INSERT INTO {os.getenv('MYSQL_COURSE_TABLE')} (id, class_name, teacher, class_time, class_room, credit) VALUES ( {a}, {b}, {c}, {d}, {e}, {credit});"
             cur.execute(command)
             conn.commit()
             # print新增成功的資料

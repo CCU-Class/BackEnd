@@ -53,5 +53,5 @@ def get_a_link(url):
         i += 1
         if href:
             links.append(href)
-    links = links[1:95]
+    links = links[1:92]
     return links
