@@ -57,7 +57,7 @@ const model = {
         return new Promise((resolve, reject) => {
             database.query(str, [table, weekday[day],limit], (err, result, fields) => {
                 if (err) {
-                    console.log(err);
+                    // console.log(err);
                     reject(err);
                 } else {
                     resolve(result);
@@ -76,6 +76,7 @@ const model = {
                 if(classtime[j][0] != day) continue;
                 if(classtime[j][1] >= start && classtime[j][2] <= end){
                     classArray.push(array[index]);
+                    break;
                 }
             }
         }
@@ -91,7 +92,7 @@ const model = {
         return new Promise((resolve, reject) => {
             database.query(str, [table, Teacher,limit], (err, result, fields) => {
                 if (err) {
-                    console.log(err);
+                    // console.log(err);
                     reject(err);
                 } else {
                     //console.log(result);

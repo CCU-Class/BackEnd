@@ -65,6 +65,7 @@ WeekDayToInt = {
 
 function splittime(time) {
   let store = time.split(" ");
+  // console.log(store);
   store.splice(0, 1);
 
   let arr = [];
@@ -72,10 +73,13 @@ function splittime(time) {
     let temp = store[i][0];
     let temp2 = store[i].slice(1);
     let temp3 = temp2.split(",");
-    let single_data = [WeekDayToInt[temp], courseToStartIndex[temp3[0]], courseToEndIndex[temp3[temp3.length - 1]] - 1];
-    arr.push(single_data);
+    for(let j = 0; j < temp3.length; j++){
+      let single_data = [WeekDayToInt[temp], courseToStartIndex[temp3[j]], courseToEndIndex[temp3[j]] - 1];
+      console.log(single_data)
+      arr.push(single_data);
+    }
   }
-  console.log(arr);
+  // console.log(arr);
   return arr;
 }
 
