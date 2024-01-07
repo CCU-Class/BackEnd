@@ -1,9 +1,11 @@
 import mysql.connector
+from mysql.connector.cursor import MySQLCursorDict
 import os
 
 import psycopg2
 import pandas as pd
 import urllib.parse as urlparse
+import time
 
 from funcion import get_table_data
 from funcion import get_a_link
@@ -46,12 +48,14 @@ links = get_a_link(url1)
 
 # 在所有的子網址上爬取資料
 for j in links:
-
     url = url1 + str(j)
     data = get_table_data(url)
+    departement = "'" + data['department'] + "'";
+    data = data['data']
     correct_num = int(0)
     error_num = int(0)
     for row in data:
+        grade = "'" + row[0] + "'";
         a = "'" + row[1] + "'";
         b = "'" + row[3] + "'";
         c = "'" + row[4] + "'";
@@ -59,6 +63,7 @@ for j in links:
         e = "'" + row[9] + "'";
         credit = "'" + row[6] + "'";
         if j == "I001.html":
+            grade = "'" + row[1] + "'";
             a = "'" + row[2] + "'";
             b = "'" + row[4] + "'";
             c = "'" + row[5] + "'";
@@ -66,12 +71,31 @@ for j in links:
             e = "'" + row[10] + "'";
             credit = "'" + row[7] + "'";
         try:
+            '''
+            create table `course112_2`(
+                `id` INT not null,
+                `department` nvarchar(100) not NULL default "未知",
+                `grade` nvarchar(100) not NULL default "未知",
+                `class_name` nvarchar(100) not null,
+                `teacher` nvarchar(70) not null,
+                `class_time` nvarchar(40) not null,
+                `class_room` nvarchar(50) not null,
+                `credit` int not null,
+                `selection_count` INT default 0,
+                `deprecated`boolean default false,
+                primary key(id, department, grade,class_name,teacher,class_time,class_room, credit)
+            );
+            '''
             #若有id,class_name,class_time,class_room相同的資料，則不新增
             cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};")
             dd = cur.fetchone()
             if dd != None:
+                if dd[1] == "未知" or dd[2] == "未知":
+                    query = f"UPDATE {os.getenv('MYSQL_COURSE_TABLE')} SET department = {departement}, grade = {grade} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};"
+                    cur.execute(query)
+                    conn.commit()
                 continue
-            command = f"INSERT INTO {os.getenv('MYSQL_COURSE_TABLE')} (id, class_name, teacher, class_time, class_room, credit) VALUES ( {a}, {b}, {c}, {d}, {e}, {credit});"
+            command = f"INSERT INTO {os.getenv('MYSQL_COURSE_TABLE')} (department, grade, id, class_name, teacher, class_time, class_room, credit) VALUES ({departement}, {grade}, {a}, {b}, {c}, {d}, {e}, {credit});"
             cur.execute(command)
             conn.commit()
             # print新增成功的資料

@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import time
 
 # 返回表格裡的資料，除了時間以及上課地點，其餘遇到英文都會break
 def get_table_data(url):
@@ -7,6 +8,8 @@ def get_table_data(url):
     response = requests.get(url)
     # 使用 Beautiful Soup 解析 HTML 代碼
     soup = BeautifulSoup(response.content, 'html.parser')
+    title = soup.find('h1').get_text(separator=" ", strip=True).split(':')
+    department = title[1].strip()
     # print(soup)
     # 找到網頁中所有的 table 標籤
     table_elements = soup.find_all('table')
@@ -22,7 +25,7 @@ def get_table_data(url):
                 # 提取 td 標籤中的文字內容
                 a = td.text
                 b = str()
-                if i == 8 or i == 9:
+                if i == 8 or i == 9 or i == 1:
                     b = a
                 elif i != 8 and i != 9:
                     for font in td.find_all('font'):
@@ -36,7 +39,8 @@ def get_table_data(url):
         if table_data:
             data.append(table_data)
         data = data[0]
-    return data
+        Rdata = {"department":department, "data": data}
+    return Rdata
 
 
 # 把主頁面裡的所有連結都抓出來，因為目前只有91個課程網頁，後面都是重複的，因此只傳回前91個
@@ -53,5 +57,5 @@ def get_a_link(url):
         i += 1
         if href:
             links.append(href)
-    links = links[1:92]
+    links = links[1:93]
     return links
