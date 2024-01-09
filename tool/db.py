@@ -45,7 +45,7 @@ error_message = []
 
 links = get_a_link(url1)
 
-cur.execute("update course112_2 set deprecated = true where id > 0;")
+cur.execute("update course112_2 set deprecated = true;")
 conn.commit()
 
 # 在所有的子網址上爬取資料
