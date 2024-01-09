@@ -45,6 +45,8 @@ error_message = []
 
 links = get_a_link(url1)
 
+cur.execute("update course112_2 set deprecated = true where id > 0;")
+conn.commit()
 
 # 在所有的子網址上爬取資料
 for j in links:
@@ -87,13 +89,12 @@ for j in links:
             );
             '''
             #若有id,class_name,class_time,class_room相同的資料，則不新增
-            cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};")
+            cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade};")
             dd = cur.fetchone()
             if dd != None:
-                if dd[1] == "未知" or dd[2] == "未知":
-                    query = f"UPDATE {os.getenv('MYSQL_COURSE_TABLE')} SET department = {departement}, grade = {grade} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit};"
-                    cur.execute(query)
-                    conn.commit()
+                command = f"UPDATE {os.getenv('MYSQL_COURSE_TABLE')} SET deprecated = false where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade};"
+                cur.execute(command)
+                conn.commit()
                 continue
             command = f"INSERT INTO {os.getenv('MYSQL_COURSE_TABLE')} (department, grade, id, class_name, teacher, class_time, class_room, credit) VALUES ({departement}, {grade}, {a}, {b}, {c}, {d}, {e}, {credit});"
             cur.execute(command)
