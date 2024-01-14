@@ -100,6 +100,55 @@ const model = {
                 }
             });
         });
+    },
+    async getCourseByDepartment(department){
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
+        let str = "select * from ?? where \`department\` like concat('%', ?, '%') order by \`selection_count\` desc limit ?;";
+        return new Promise((resolve, reject) => {
+            database.query(str, [table, department,limit], (err, result, fields) => {
+                if (err) {
+                    // console.log(err);
+                    reject(err);
+                } else {
+                    //console.log(result);
+                    resolve(result);
+                }
+            });
+        });
+    }, 
+    async getCourseByDepartmentAndGrade(department, grade){
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
+        let str = "select * from ?? where \`department\` like concat('%', ?, '%') and \`grade\` like concat('%', ?, '%')  order by \`selection_count\` desc limit ?;";
+        return new Promise((resolve, reject) => {
+            database.query(str, [table, department, grade,limit], (err, result, fields) => {
+                if (err) {
+                    // console.log(err);
+                    reject(err);
+                } else {
+                    //console.log(result);
+                    resolve(result);
+                }
+            });
+        });
+        
+    }, 
+    async getGradeByDepartment(department){
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
+        let str = "select distinct from ?? where \`department\` = like concat('%', ?, '%')";
+        return new Promise((resolve, reject) => {
+            database.query(str, [table, department], (err, result, fields) => {
+                if (err) {
+                    // console.log(err);
+                    reject(err);
+                } else {
+                    //console.log(result);
+                    resolve(result);
+                }
+            });
+        });
     }
 }
 

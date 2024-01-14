@@ -19,6 +19,19 @@ const controller = {
         let result = await model.getCoursesByTeacher(Teacher);
         if(process.env.USING_DATABASE== "postgre") return result.rows;
         return result
+    }, 
+    
+    async searchGradeByDepartment(department){
+        let result = await model.getGradeByDepartment(department);
+        return result;
+    },
+    async searchCourseByDepartment(department){
+        let result = await model.getCourseByDepartment(department);
+        return result;
+    },
+    async searchCourseByDepartmentAndGrade(department, grade){
+        let result = await model.getCourseByDepartmentAndGrade(department, grade);
+        return  result;
     }
 };
 module.exports = controller;

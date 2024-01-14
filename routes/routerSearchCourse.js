@@ -40,6 +40,37 @@ router.get('/ByTeacher', async function(req, res) {
   res.send(array);
 });
 
+router.get('/GetGardeByDepartment', async function(req, res) {
+  const Department = req.query.Department
+  if(regex.checkChineseEnglishNum(Department)){
+    array = await controller.searchGradeByDepartment(Department);
+  }
+  //console.log(array);
+  res.send(array);
+});
+
+router.get('/ByDepartment', async function(req, res){
+  const department = req.params.Department;
+  if(regex.checkChineseEnglishNum(Teacher)){
+    array = await controller.searchCourseByDepartment(Teacher);
+  }
+  //console.log(array);
+  res.send(array);
+});
+
+router.get('/ByDepartmentAndGrade', async function(req, res){
+  const department = req.params.Department;
+  const grade = req.query.Grade;
+  if(regex.checkChineseEnglishNum(department) && regex.checkChineseEnglishNum(grade)){
+    array = await controller.searchCourseByDepartmentAndGrade(department, grade);
+  }
+  //console.log(array);
+  res.send(array);
+});
+
+router.get('/');
+
+
 router.get('/', async function(req, res) {
   const keyword = req.query.keyword;
   console.log(keyword)
