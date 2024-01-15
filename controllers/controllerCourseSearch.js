@@ -26,6 +26,7 @@ const controller = {
         return result;
     },
     async searchCourseByDepartment(department){
+        console.log("controller")
         let result = await model.getCourseByDepartment(department);
         return result;
     },

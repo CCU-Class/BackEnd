@@ -7,7 +7,7 @@ const model = {
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         //let str = `SELECT * FROM \`${table}\` where \`class_name\` like '%${class_name}%' order by \`selection_count\` DESC limit ${process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT};`;
-        let str = "select * from ?? where \`class_name\` like concat('%', ?, '%') order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`class_name\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         //console.log(str);
         return new Promise((resolve, reject) => {
             database.query(str, [table, class_name,limit], (err, result, fields) => {
@@ -52,7 +52,7 @@ const model = {
             5 : "五",
             6 : "六"
         }
-        let str = "select * from ?? where \`class_time\` like concat('%', ?, '%') order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`class_time\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         //console.log(str);
         return new Promise((resolve, reject) => {
             database.query(str, [table, weekday[day],limit], (err, result, fields) => {
@@ -87,7 +87,7 @@ const model = {
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         
-        let str = "select * from ?? where \`teacher\` like concat('%', ?, '%') order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`teacher\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         //console.log(str);
         return new Promise((resolve, reject) => {
             database.query(str, [table, Teacher,limit], (err, result, fields) => {
@@ -102,9 +102,10 @@ const model = {
         });
     },
     async getCourseByDepartment(department){
+        console.log("model", department)
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
-        let str = "select * from ?? where \`department\` like concat('%', ?, '%') order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`department\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department,limit], (err, result, fields) => {
                 if (err) {
@@ -120,7 +121,7 @@ const model = {
     async getCourseByDepartmentAndGrade(department, grade){
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
-        let str = "select * from ?? where \`department\` like concat('%', ?, '%') and \`grade\` like concat('%', ?, '%')  order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`department\` like concat('%', ?, '%') and \`grade\` like concat('%', ?, '%')  AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department, grade,limit], (err, result, fields) => {
                 if (err) {
@@ -144,7 +145,7 @@ const model = {
                     // console.log(err);
                     reject(err);
                 } else {
-                    //console.log(result);
+                    console.log(result);
                     resolve(result);
                 }
             });
