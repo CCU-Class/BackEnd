@@ -32,6 +32,10 @@ const controller = {
     async searchCourseByDepartmentAndGrade(department, grade){
         let result = await model.getCourseByDepartmentAndGrade(department, grade);
         return  result;
+    },
+    async getDepartment(){
+        let result = await model.getDepartment();
+        return  result;
     }
 };
 module.exports = controller;

@@ -111,7 +111,7 @@ const model = {
                     // console.log(err);
                     reject(err);
                 } else {
-                    //console.log(result);
+                    // console.log(result);
                     resolve(result);
                 }
             });
@@ -146,6 +146,22 @@ const model = {
                 } else {
                     //console.log(result);
                     resolve(result);
+                }
+            });
+        });
+    },
+    async getDepartment(){
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let str = "SELECT DISTINCT department FROM ??";
+        return new Promise((resolve, reject) => {
+            database.query(str, [table], (err, result, fields) => {
+                if (err) {
+                    // console.log(err);
+                    reject(err);
+                } else {
+                    let data = []
+                    for (const item of result) data.push(item['department'])
+                    resolve(data);
                 }
             });
         });

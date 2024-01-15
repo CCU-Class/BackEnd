@@ -51,10 +51,10 @@ router.get('/GetGardeByDepartment', async function(req, res) {
 
 router.get('/ByDepartment', async function(req, res){
   const department = req.params.Department;
-  if(regex.checkChineseEnglishNum(Teacher)){
-    array = await controller.searchCourseByDepartment(Teacher);
+  if(regex.checkChineseEnglishNum(department)){
+    array = await controller.searchCourseByDepartment(department);
   }
-  //console.log(array);
+  // console.log(array);
   res.send(array);
 });
 
@@ -64,6 +64,12 @@ router.get('/ByDepartmentAndGrade', async function(req, res){
   if(regex.checkChineseEnglishNum(department) && regex.checkChineseEnglishNum(grade)){
     array = await controller.searchCourseByDepartmentAndGrade(department, grade);
   }
+  //console.log(array);
+  res.send(array);
+});
+
+router.get('/getDepartment', async function(req, res){
+  array = await controller.getDepartment();
   //console.log(array);
   res.send(array);
 });
