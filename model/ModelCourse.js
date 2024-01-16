@@ -105,7 +105,7 @@ const model = {
         console.log("model", department)
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
-        let str = "select * from ?? where \`department\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`department\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`id\` desc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department,limit], (err, result, fields) => {
                 if (err) {
