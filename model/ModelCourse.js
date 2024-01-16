@@ -138,7 +138,7 @@ const model = {
     async getGradeByDepartment(department){
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
-        let str = "select distinct from ?? where \`department\` = like concat('%', ?, '%')";
+        let str = "select distinct grade from ?? where \`department\` = ?";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department], (err, result, fields) => {
                 if (err) {
