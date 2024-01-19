@@ -176,7 +176,7 @@ const model = {
                 if(err)reject(err);
                 else{
                     
-                    resolve(result[0].department);
+                    resolve(result);
                 }
             });
         });
@@ -188,7 +188,7 @@ const model = {
             database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
                 if(err)reject(err);
                 else{
-                    resolve(result[0].grade);
+                    resolve(result);
                 }
             });
         });

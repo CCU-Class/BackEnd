@@ -75,7 +75,7 @@ router.get('/getDepartment', async function(req, res){
 });
 
 router.get('/searchDepartmentByOther', async function(req,res){
-  let id = Number(req.query.id);
+  let id = req.query.id;
   let class_name = req.query.class_name;
   let teacher = req.query.teacher;
   let class_room = req.query.class_room;
@@ -85,7 +85,7 @@ router.get('/searchDepartmentByOther', async function(req,res){
 });
 
 router.get('/searchGradeByOther', async function(req,res){
-  let id = Number(req.query.id);
+  let id = req.query.id;
   let class_name = req.query.class_name;
   let teacher = req.query.teacher;
   let class_room = req.query.class_room;
