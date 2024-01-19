@@ -74,6 +74,27 @@ router.get('/getDepartment', async function(req, res){
   res.send(array);
 });
 
+router.get('/searchDepartmentByOther', async function(req,res){
+  let id = Number(req.query.id);
+  let class_name = req.query.class_name;
+  let teacher = req.query.teacher;
+  let class_room = req.query.class_room;
+  let credit = req.query.credit;
+  array = await controller.searchDepartmentByOther(id, class_name, teacher, class_room, credit);
+  res.send(array);
+});
+
+router.get('/searchGradeByOther', async function(req,res){
+  let id = Number(req.query.id);
+  let class_name = req.query.class_name;
+  let teacher = req.query.teacher;
+  let class_room = req.query.class_room;
+  let credit = req.query.credit;
+  console.log(`id=${id}, class_room=${class_room}, credit=${credit}`);
+  array = await controller.searchGradeByOther(id, class_name, teacher, class_room, credit);
+  res.send(array);
+});
+
 router.get('/');
 
 

@@ -37,6 +37,14 @@ const controller = {
     async getDepartment(){
         let result = await model.getDepartment();
         return  result;
+    },
+    async searchDepartmentByOther(id, class_name, teacher, class_room, credit){
+        let result = await model.getDepartmentByOther(id, class_name, teacher, class_room, credit);
+        return result;
+    },
+    async searchGradeByOther(id, class_name, teacher, class_room, credit){
+        let result = await model.getGradeByOther(id, class_name, teacher, class_room, credit);
+        return result;
     }
 };
 module.exports = controller;

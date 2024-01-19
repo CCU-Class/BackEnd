@@ -166,7 +166,34 @@ const model = {
                 }
             });
         });
-    }
+    },
+    async getDepartmentByOther(id, class_name, teacher, class_room, credit){
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let str = "select department from ?? where \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;";
+        return new Promise(function(resolve, reject){
+            database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
+                // console.log(fields);
+                if(err)reject(err);
+                else{
+                    
+                    resolve(result[0].department);
+                }
+            });
+        });
+    },
+    async getGradeByOther(id, class_name, teacher, class_room, credit){
+        let table = process.env.MYSQL_COURSE_TABLE;
+        let str = "select grade from ?? where \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;"
+        return new Promise(function(resolve, reject){
+            database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
+                if(err)reject(err);
+                else{
+                    resolve(result[0].grade);
+                }
+            });
+        });
+    },
+
 }
 
 module.exports = model;
