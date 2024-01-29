@@ -7,7 +7,7 @@ const model = {
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         //let str = `SELECT * FROM \`${table}\` where \`class_name\` like '%${class_name}%' order by \`selection_count\` DESC limit ${process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT};`;
-        let str = "select * from ?? where \`class_name\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`deprecated\` = false and \`class_name\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         //console.log(str);
         return new Promise((resolve, reject) => {
             database.query(str, [table, class_name,limit], (err, result, fields) => {
@@ -52,7 +52,7 @@ const model = {
             5 : "五",
             6 : "六"
         }
-        let str = "select * from ?? where \`class_time\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`deprecated\` = false and \`class_time\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         //console.log(str);
         return new Promise((resolve, reject) => {
             database.query(str, [table, weekday[day],limit], (err, result, fields) => {
@@ -87,7 +87,7 @@ const model = {
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         
-        let str = "select * from ?? where \`teacher\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`deprecated\` = false and \`teacher\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         //console.log(str);
         return new Promise((resolve, reject) => {
             database.query(str, [table, Teacher,limit], (err, result, fields) => {
@@ -105,7 +105,7 @@ const model = {
         console.log("model", department)
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
-        let str = "select * from ?? where \`department\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`id\` asc limit ?;";
+        let str = "select * from ?? where \`deprecated\` = false and \`department\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`id\` asc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department,limit], (err, result, fields) => {
                 if (err) {
@@ -121,7 +121,7 @@ const model = {
     async getCourseByDepartmentAndGrade(department, grade){
         let table = process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
-        let str = "select * from ?? where \`department\` like concat('%', ?, '%') and \`grade\` like concat('%', ?, '%')  AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
+        let str = "select * from ?? where \`deprecated\` = false and \`department\` like concat('%', ?, '%') and \`grade\` like concat('%', ?, '%')  AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department, grade,limit], (err, result, fields) => {
                 if (err) {
@@ -169,7 +169,7 @@ const model = {
     },
     async getDepartmentByOther(id, class_name, teacher, class_room, credit){
         let table = process.env.MYSQL_COURSE_TABLE;
-        let str = "select department from ?? where \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;";
+        let str = "select department from ?? where \`deprecated\` = false and \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;";
         return new Promise(function(resolve, reject){
             database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
                 // console.log(fields);
@@ -183,7 +183,7 @@ const model = {
     },
     async getGradeByOther(id, class_name, teacher, class_room, credit){
         let table = process.env.MYSQL_COURSE_TABLE;
-        let str = "select grade from ?? where \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;"
+        let str = "select grade from ?? where \`deprecated\` = false and \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;"
         return new Promise(function(resolve, reject){
             database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
                 if(err)reject(err);
