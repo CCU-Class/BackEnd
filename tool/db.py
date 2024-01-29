@@ -93,7 +93,6 @@ for j in links:
             dd = cur.fetchone()
             if dd != None:
                 command = f"UPDATE {os.getenv('MYSQL_COURSE_TABLE')} SET deprecated = false where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade};"
-                print(command)
                 cur.execute(command)
                 conn.commit()
                 continue
