@@ -89,10 +89,11 @@ for j in links:
             );
             '''
             #若有id,class_name,class_time,class_room相同的資料，則不新增
-            cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade};")
+            cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade} and teacher = {c};")
             dd = cur.fetchone()
             if dd != None:
-                command = f"UPDATE {os.getenv('MYSQL_COURSE_TABLE')} SET deprecated = false where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade} and teacher = {c};"
+                command = f"UPDATE {os.getenv('MYSQL_COURSE_TABLE')} SET deprecated = false where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade};"
+                print(command)
                 cur.execute(command)
                 conn.commit()
                 continue
