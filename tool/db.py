@@ -44,8 +44,8 @@ totally_error = 0
 error_message = []
 
 links = get_a_link(url1)
-
-cur.execute("update course112_2 set deprecated = true;")
+table = os.getenv("MYSQL_COURSE_TABLE")
+cur.execute(f"update {table} set deprecated = true;")
 conn.commit()
 
 # 在所有的子網址上爬取資料
@@ -73,21 +73,6 @@ for j in links:
             e = "'" + row[10] + "'";
             credit = "'" + row[7] + "'";
         try:
-            '''
-            create table `course112_2`(
-                `id` INT not null,
-                `department` nvarchar(100) not NULL default "未知",
-                `grade` nvarchar(100) not NULL default "未知",
-                `class_name` nvarchar(100) not null,
-                `teacher` nvarchar(70) not null,
-                `class_time` nvarchar(40) not null,
-                `class_room` nvarchar(50) not null,
-                `credit` int not null,
-                `selection_count` INT default 0,
-                `deprecated`boolean default false,
-                primary key(id, department, grade,class_name,teacher,class_time,class_room, credit)
-            );
-            '''
             #若有id,class_name,class_time,class_room相同的資料，則不新增
             cur.execute(f"select * from {os.getenv('MYSQL_COURSE_TABLE')} where id = {a} and class_name = {b} and class_time = {d} and class_room = {e} and credit = {credit} and department = {departement} and grade = {grade} and teacher = {c};")
             dd = cur.fetchone()
