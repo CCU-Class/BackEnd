@@ -2,9 +2,9 @@ const database = require('../config/database');
 const time = require('../functions/time');
 
 const model = {
-    async getCourses(class_name){
+    async getCourses(class_name, courseTable){
         //會根據class_name的比對位置來排序 越先比對到的越前面
-        let table = process.env.MYSQL_COURSE_TABLE;
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         //let str = `SELECT * FROM \`${table}\` where \`class_name\` like '%${class_name}%' order by \`selection_count\` DESC limit ${process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT};`;
         let str = "select * from ?? where  \`class_name\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
@@ -13,7 +13,8 @@ const model = {
             database.query(str, [table, class_name,limit], (err, result, fields) => {
                 if (err) {
                     console.log(err);
-                    reject(err);
+                    // reject(err);
+                    resolve([]);
                 } else {
                     //console.log(result);
                     resolve(result);
@@ -21,8 +22,8 @@ const model = {
             });
         });
     },
-    async updateSelectionCount(course, num){
-        let table = process.env.MYSQL_COURSE_TABLE;
+    async updateSelectionCount(course, num, courseTable){
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let id = Number(course.id);
         let teacher = course.teacher;
         //let str = `UPDATE \`${table}\` SET \`selection_count\`=\`selection_count\`+${num} WHERE \`id\`= ${id} and \`teacher\`='${teacher}';`;
@@ -32,7 +33,7 @@ const model = {
             database.query(str, [table, num, id, teacher], (err, result, fields) => {
                 if (err) {
                     console.log(err);
-                    reject(false);
+                    resolve(false);
                 } else {
                     //console.log(`update result: ${result}`);    
                     resolve(true);
@@ -40,9 +41,9 @@ const model = {
             });
         });
     },
-    async getCoursesByDay(day){
+    async getCoursesByDay(day, courseTable){
         //會根據class_name的比對位置來排序 越先比對到的越前面
-        let table = process.env.MYSQL_COURSE_TABLE;
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         let weekday = {
             1 : "一",
@@ -57,15 +58,16 @@ const model = {
         return new Promise((resolve, reject) => {
             database.query(str, [table, weekday[day],limit], (err, result, fields) => {
                 if (err) {
-                    // console.log(err);
-                    reject(err);
+                    console.log(err);
+                    // reject(err);
+                    resolve([]);
                 } else {
                     resolve(result);
                 }
             });
         });
     },
-    async getCoursesByTime(day, start, end){
+    async getCoursesByTime(day, start, end,){
         //會根據class_name的比對位置來排序 越先比對到的越前面
         let array = await this.getCoursesByDay(day);
         let classArray = [];
@@ -82,9 +84,9 @@ const model = {
         }
         return classArray;
     },
-    async getCoursesByTeacher(Teacher){
+    async getCoursesByTeacher(Teacher, courseTable){
         //會根據class_name的比對位置來排序 越先比對到的越前面
-        let table = process.env.MYSQL_COURSE_TABLE;
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         
         let str = "select * from ?? where  \`teacher\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
@@ -92,8 +94,8 @@ const model = {
         return new Promise((resolve, reject) => {
             database.query(str, [table, Teacher,limit], (err, result, fields) => {
                 if (err) {
-                    // console.log(err);
-                    reject(err);
+                    console.log(err);
+                    resolve([]);
                 } else {
                     //console.log(result);
                     resolve(result);
@@ -101,16 +103,17 @@ const model = {
             });
         });
     },
-    async getCourseByDepartment(department){
+    async getCourseByDepartment(department, courseTable){
         console.log("model", department)
-        let table = process.env.MYSQL_COURSE_TABLE;
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         let str = "select * from ?? where  \`department\` like concat('%', ?, '%') AND `deprecated` = 0 order by \`id\` asc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department,limit], (err, result, fields) => {
                 if (err) {
-                    // console.log(err);
-                    reject(err);
+                    console.log(err);
+                    // reject(err);
+                    resolve([]);
                 } else {
                     // console.log(result);
                     resolve(result);
@@ -118,15 +121,16 @@ const model = {
             });
         });
     }, 
-    async getCourseByDepartmentAndGrade(department, grade){
-        let table = process.env.MYSQL_COURSE_TABLE;
+    async getCourseByDepartmentAndGrade(department, grade, courseTable){
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         let str = "select * from ?? where  \`department\` like concat('%', ?, '%') and \`grade\` like concat('%', ?, '%')  AND `deprecated` = 0 order by \`selection_count\` desc limit ?;";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department, grade,limit], (err, result, fields) => {
                 if (err) {
-                    // console.log(err);
-                    reject(err);
+                    console.log(err);
+                    // reject(err);
+                    resolve([]);
                 } else {
                     //console.log(result);
                     resolve(result);
@@ -135,15 +139,16 @@ const model = {
         });
         
     }, 
-    async getGradeByDepartment(department){
-        let table = process.env.MYSQL_COURSE_TABLE;
+    async getGradeByDepartment(department, courseTable){
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let limit = Number(process.env.MYSQL_CLASSNAME_NUMBERS_LIMIT);
         let str = "select distinct grade from ?? where \`department\` = ?";
         return new Promise((resolve, reject) => {
             database.query(str, [table, department], (err, result, fields) => {
                 if (err) {
-                    // console.log(err);
-                    reject(err);
+                    console.log(err);
+                    // reject(err);
+                    resolve([]);
                 } else {
                     console.log(result);
                     resolve(result);
@@ -151,14 +156,16 @@ const model = {
             });
         });
     },
-    async getDepartment(){
-        let table = process.env.MYSQL_COURSE_TABLE;
+    async getDepartment(courseTable){
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let str = "SELECT DISTINCT department FROM ??";
         return new Promise((resolve, reject) => {
             database.query(str, [table], (err, result, fields) => {
                 if (err) {
-                    // console.log(err);
-                    reject(err);
+                    console.log(err);
+                    // reject(err);
+                    resolve([]);
+                    
                 } else {
                     let data = []
                     for (const item of result) data.push(item['department'])
@@ -167,13 +174,16 @@ const model = {
             });
         });
     },
-    async getDepartmentByOther(id, class_name, teacher, class_room, credit){
-        let table = process.env.MYSQL_COURSE_TABLE;
+    async getDepartmentByOther(id, class_name, teacher, class_room, credit, courseTable){
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let str = "select department from ?? where  \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;";
         return new Promise(function(resolve, reject){
             database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
                 // console.log(fields);
-                if(err)reject(err);
+                if(err){
+                    console.log(err);
+                    resolve([]);
+                }
                 else{
                     
                     resolve(result);
@@ -181,13 +191,15 @@ const model = {
             });
         });
     },
-    async getGradeByOther(id, class_name, teacher, class_room, credit){
-        let table = process.env.MYSQL_COURSE_TABLE;
+    async getGradeByOther(id, class_name, teacher, class_room, credit, courseTable){
+        let table = courseTable || process.env.MYSQL_COURSE_TABLE;
         let str = "select grade from ?? where  \`id\` = ? and \`class_name\` = ? and \`teacher\` = ? and \`class_room\` = ? and \`credit\` = ?;"
         return new Promise(function(resolve, reject){
             database.query(str, [table, id, class_name,teacher,class_room, credit], function(err,result, fields){
-                if(err)reject(err);
-                else{
+                if(err){
+                    console.log(err);
+                    resolve([]);
+                }else{
                     resolve(result);
                 }
             });

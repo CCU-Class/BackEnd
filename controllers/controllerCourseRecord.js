@@ -1,7 +1,7 @@
 var model = require('../model/ModelCourse.js');
 const controller = {
-    async recordCourse(course){
-        let result = await model.updateSelectionCount(course, 1);
+    async recordCourse(course, courseTable){
+        let result = await model.updateSelectionCount(course, 1, courseTable);
         return result;
     }
 };

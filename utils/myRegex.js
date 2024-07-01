@@ -6,6 +6,11 @@ function checkChineseEnglishNum(str){
 function checkEnglish(str){
     return /^[A-Za-z]+$/.test(str);
 }
+function checkCourseTable(str){
+    // return format `course${year}_${semester}`
+    return /^course\d+_\d+$/;
+
+}
 
 //檢測是否為數字
 function checkNum(str){
@@ -14,4 +19,5 @@ function checkNum(str){
 module.exports = {
     checkChineseEnglishNum: checkChineseEnglishNum,
     checkNum: checkNum,
+    checkCourseTable: checkCourseTable,
 }
