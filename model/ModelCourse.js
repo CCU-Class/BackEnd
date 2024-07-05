@@ -67,7 +67,7 @@ const model = {
             });
         });
     },
-    async getCoursesByTime(day, start, end,courseTable){
+    async getCoursesByTime(day, start, end, courseTable){
         //會根據class_name的比對位置來排序 越先比對到的越前面
         let array = await this.getCoursesByDay(day,courseTable);
         let classArray = [];
