@@ -1,0 +1,23 @@
+version: '3'
+services:
+    database:
+        container_name: ccuclass_phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8081:80"
+        environment:
+            PMA_HOST: mysqldb
+            MYSQL_ROOT_PASSWORD: root
+        depends_on:
+            - mysqldb
+    mysqldb:
+        container_name: ccuclass_db
+        image: mysql:latest
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test
+        volumes:
+            - ./mysqldb:/var/lib/mysql
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
