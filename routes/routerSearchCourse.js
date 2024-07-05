@@ -9,10 +9,15 @@ router.get('/ByTime', async function(req, res) {
   const start = req.query.start;
   const end = req.query.end;
 
+  const year = req.query.year;
+  const semester = req.query.semester;
+  let courseTable = (year!=undefined && semester != undefined) ? `course${year}_${semester}` : undefined;
+  if(!regex.checkCourseTable(courseTable)) courseTable = undefined;
+
   //=============讓controller幫我們查==========
   var array = null;
   if(regex.checkChineseEnglishNum(day)){
-    array = await controller.searchCoursesByTime(day, start, end);
+    array = await controller.searchCoursesByTime(day, start, end, courseTable);
   }
   //console.log(array);
   res.send(array);

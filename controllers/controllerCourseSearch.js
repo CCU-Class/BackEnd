@@ -10,8 +10,8 @@ const controller = {
         if(process.env.USING_DATABASE== "postgre") return result.rows;
         return result
     },
-    async searchCoursesByTime(day, start, end){
-        let result = await model.getCoursesByTime(day, start, end);
+    async searchCoursesByTime(day, start, end, courseTable){
+        let result = await model.getCoursesByTime(day, start, end, courseTable);
         if(process.env.USING_DATABASE== "postgre") return result.rows;
         return result
     },

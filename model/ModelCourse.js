@@ -67,9 +67,9 @@ const model = {
             });
         });
     },
-    async getCoursesByTime(day, start, end,){
+    async getCoursesByTime(day, start, end,courseTable){
         //會根據class_name的比對位置來排序 越先比對到的越前面
-        let array = await this.getCoursesByDay(day);
+        let array = await this.getCoursesByDay(day,courseTable);
         let classArray = [];
         for (let index = 0; index < array.length; index++) {
             const TimeString = array[index]['class_time'];
