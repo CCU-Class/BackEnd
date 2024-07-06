@@ -75,7 +75,7 @@ function splittime(time) {
     let temp3 = temp2.split(",");
     for(let j = 0; j < temp3.length; j++){
       let single_data = [WeekDayToInt[temp], courseToStartIndex[temp3[j]], courseToEndIndex[temp3[j]] - 1];
-      console.log(single_data)
+      // console.log(single_data)
       arr.push(single_data);
     }
   }
