@@ -1,5 +1,6 @@
 const database = require('../config/database');
 const time = require('../functions/time');
+const { v4: uuidv4 } = require('uuid');
 
 const model = {
     async getCourses(class_name, courseTable){
@@ -201,6 +202,33 @@ const model = {
                     resolve([]);
                 }else{
                     resolve(result);
+                }
+            });
+        });
+    },
+    async saveCourseRecord(data){
+        let str = "INSERT INTO `course_table_save_file`(`uuid`, `json_data`) VALUES (?,?);";
+        let uuid = uuidv4();
+        return new Promise(function(resolve, reject){
+            database.query(str, [uuid, data], function(err,result, fields){
+                if(err){
+                    console.log(err);
+                    resolve(false);
+                }else{
+                    resolve(uuid);
+                }
+            });
+        });
+    },
+    async getCourseRecord(uuid){
+        let str = "SELECT * FROM `course_table_save_file` WHERE `uuid` = ?;";
+        return new Promise(function(resolve, reject){
+            database.query(str, [uuid], function(err,result, fields){
+                if(err){
+                    console.log(err);
+                    resolve([]);
+                }else{
+                    resolve(result[0]);
                 }
             });
         });

@@ -43,4 +43,32 @@ router.get('/visistWebsite', async function(req, res){
   } 
 });
 
+router.post('/saveCourseRecord', async function(req, res){
+  const data = req.body.json_data;
+  console.log(`data: ${data}`);
+  let result = await controllerCourseRecord.saveCourseRecord(data);
+  if(result){
+    res.send(result);
+  }else{
+    res.send(false);
+  }
+});
+
+router.get('/redirectCourseRecord', async function(req, res){
+  let data = req.query.record_id;
+  res.redirect(process.env.FRONTEND_URL + '/#/main?record_id=' + data);
+});
+
+router.get('/getCourseRecord', async function(req, res){
+  let record_id = req.query.record_id;
+  let result = await controllerCourseRecord.getCourseRecord(record_id);
+  if(result){
+    res.send(result);
+  }
+  else{
+    res.send(false);
+  }
+});
+
+
 module.exports = router;

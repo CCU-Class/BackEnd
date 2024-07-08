@@ -20,7 +20,8 @@
     "mysql2": "^3.5.2",
     "nodemon": "^3.0.2",
     "os-utils": "^0.0.14",
-    "pg": "^8.11.2"
+    "pg": "^8.11.2",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.2"
