@@ -45,7 +45,7 @@ router.get('/visistWebsite', async function(req, res){
 
 router.post('/saveCourseRecord', async function(req, res){
   const data = req.body.json_data;
-  console.log(`data: ${data}`);
+  // console.log(`data: ${data}`);
   let result = await controllerCourseRecord.saveCourseRecord(data);
   if(result){
     res.send(result);
