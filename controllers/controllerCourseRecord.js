@@ -11,7 +11,8 @@ const controller = {
     },
     async getCourseRecord(uuid){
         let result = await model.getCourseRecord(uuid);
-        return result;
+        if(result.length == 0) return false;
+        return result[0];
     },
 };
 module.exports = controller;

@@ -220,19 +220,30 @@ const model = {
             });
         });
     },
-    async getCourseRecord(uuid){
+    async getCourseRecord(uuid) {
         let str = "SELECT * FROM `course_table_save_file` WHERE `uuid` = ?;";
-        return new Promise(function(resolve, reject){
-            database.query(str, [uuid], function(err,result, fields){
-                if(err){
+        return new Promise((resolve, reject) => {
+            database.query(str, [uuid], (err, result, fields) => {
+                if (err) {
                     console.log(err);
                     resolve([]);
-                }else{
-                    resolve(result[0]);
+                } else {
+                    if (result.length > 0) {
+                        let updateStr = "UPDATE `course_table_save_file` SET `last_used_at` = CURRENT_TIMESTAMP WHERE `uuid` = ?;";
+                        database.query(updateStr, [uuid], (updateErr, updateResult) => {
+                            if (updateErr) {
+                                console.log(updateErr);
+                            } else {
+                                console.log(`Updated last_used_at for uuid: ${uuid}`);
+                            }
+                        });
+                    }
+                    resolve(result);
                 }
             });
         });
-    },
+    }
+    
 
 }
 
