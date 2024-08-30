@@ -5,7 +5,7 @@ const key = process.env.JWT_KEY;
 
 const tokenConfig = {
     generateToken(payload){
-        return jwt.sign({payload}, key, {expiresIn: '30s'});
+        return jwt.sign({payload}, key, {expiresIn: '3600s'});
     },
     async verifyToken(token) {
         return new Promise((resolve, reject) => {

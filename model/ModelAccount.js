@@ -1,4 +1,7 @@
 const database = require('../config/database');
+const speakeasy = require("speakeasy");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const model={
     async getAccount(username){
@@ -32,6 +35,15 @@ const model={
                 }
             })
         });
+    },
+    async verifyOTP(otp) {
+        const key = process.env.AUTH_SECRET_KEY
+        const verified = speakeasy.totp.verify({
+            secret: key,
+            encoding: "base32",
+            token: otp,
+        });
+        return verified;
     }
     
 };
