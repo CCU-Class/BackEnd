@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： mysqldb
--- 產生時間： 2024 年 07 月 08 日 14:20
--- 伺服器版本： 9.0.0
+-- 產生時間： 2024 年 08 月 30 日 10:02
+-- 伺服器版本： 9.0.1
 -- PHP 版本： 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -40,7 +40,28 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`user_id`, `username`, `password_hash`, `email`, `last_login`) VALUES
-(1, 'admin', '$argon2id$v=19$m=65536,t=3,p=4$vWwZuXw9c5DIWMmyQHjvoA$tmKzn6xJjytpgCcytQTmo8eSVTiBoMTgdeufe4GH/Bc', 'pineappleschedule2023@gmail.com', '2023-09-13 09:24:48');
+(1, 'admin', '$argon2id$v=19$m=65536,t=3,p=4$vWwZuXw9c5DIWMmyQHjvoA$tmKzn6xJjytpgCcytQTmo8eSVTiBoMTgdeufe4GH/Bc', 'pineappleschedule2023@gmail.com', '2024-08-30 08:22:42');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `contents`
+--
+
+CREATE TABLE `contents` (
+  `id` int NOT NULL,
+  `title_id` int NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- 傾印資料表的資料 `contents`
+--
+
+INSERT INTO `contents` (`id`, `title_id`, `content`, `created_at`, `updated_at`) VALUES
+(1, 1, 'v 0.0.1 第一次公開測試版本開放\r\nv 0.0.2 UI大規模重構與優化，準備加入搜尋功能\r\nv 0.0.5 UI全面使用Tailwind改寫\r\nv 0.0.6 加入搜尋功能，並使用MySQL當作資料庫\r\nv 0.0.7 資料庫更改為postgreSQL\r\nv 0.0.8 增加計算學分之功能\r\nv 1.0.0 使用 Vue + Typescript 來完全重構本網站，並新增數個新功能\r\nv 1.0.1 與 ccu.plus 合作，新增查看 ccu.plus 評價功能\r\nv 1.0.2 更新課表合併方式，提供更穩定的課表渲染。\r\nv 1.0.3 新增時間搜尋、教師名稱搜尋功能。\r\nv 1.0.4 新增系所年級搜尋功能。\r\nv 1.0.5 課程列表可以顯示更多課程資訊，新增選擇課程時的衝堂顏色標示。\r\nv 1.0.6 新增歷年課程查詢功能，新增建立多組課表功能，新增課表分享功能。', '2024-08-30 09:40:27', '2024-08-30 09:40:27');
 
 -- --------------------------------------------------------
 
@@ -6112,6 +6133,26 @@ INSERT INTO `semester` (`id`, `year`, `semester`) VALUES
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `titles`
+--
+
+CREATE TABLE `titles` (
+  `id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- 傾印資料表的資料 `titles`
+--
+
+INSERT INTO `titles` (`id`, `title`, `created_at`, `updated_at`) VALUES
+(1, '版本紀錄', '2024-08-30 09:39:35', '2024-08-30 09:39:35');
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `web_statistic`
 --
 
@@ -6142,6 +6183,13 @@ ALTER TABLE `account`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- 資料表索引 `contents`
+--
+ALTER TABLE `contents`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `title_id` (`title_id`);
 
 --
 -- 資料表索引 `course112_1`
@@ -6176,6 +6224,12 @@ ALTER TABLE `semester`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 資料表索引 `titles`
+--
+ALTER TABLE `titles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 資料表索引 `web_statistic`
 --
 ALTER TABLE `web_statistic`
@@ -6194,6 +6248,12 @@ ALTER TABLE `account`
   MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `contents`
+--
+ALTER TABLE `contents`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `course_table_save_file`
 --
 ALTER TABLE `course_table_save_file`
@@ -6206,10 +6266,26 @@ ALTER TABLE `semester`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `titles`
+--
+ALTER TABLE `titles`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `web_statistic`
 --
 ALTER TABLE `web_statistic`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- 已傾印資料表的限制式
+--
+
+--
+-- 資料表的限制式 `contents`
+--
+ALTER TABLE `contents`
+  ADD CONSTRAINT `contents_ibfk_1` FOREIGN KEY (`title_id`) REFERENCES `titles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
