@@ -1,4 +1,6 @@
 .env
 node_modules
 tool/__pycache__
+# venv
+tool/ccuclass
 dev/mysqldb
