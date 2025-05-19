@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+
 # 返回表格裡的資料，除了時間以及上課地點，其餘遇到英文都會break
 def get_table_data(url):
     # 發送一個 GET 請求，獲取網頁內容
