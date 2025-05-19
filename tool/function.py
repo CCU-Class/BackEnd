@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import time
+import os
 
 # 返回表格裡的資料，除了時間以及上課地點，其餘遇到英文都會break
 def get_table_data(url):
@@ -38,7 +38,10 @@ def get_table_data(url):
                 table_data.append(row_data)
         if table_data:
             data.append(table_data)
-        data = data[0] if len(data) > 0 else []
+        if data:
+            data = data[0]
+        else:
+            data = []
         Rdata = {"department":department, "data": data}
     return Rdata
 
@@ -63,3 +66,12 @@ def get_a_link(url):
         counter += 1
     links = links[1:counter]
     return links
+
+if __name__ == "__main__":
+    url1 = os.getenv("CCU_COURSE_URL")
+    links = get_a_link(url1)
+    # 在所有的子網址上爬取資料
+    for j in links:
+        url = url1 + str(j)
+        data = get_table_data(url)
+        print(data)
