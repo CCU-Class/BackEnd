@@ -38,7 +38,11 @@ def get_table_data(url):
                 table_data.append(row_data)
         if table_data:
             data.append(table_data)
-        data = data[0]
+        if data[0]:
+            data = data[0]
+        else:
+            print("No data found in this table")
+            return None
         Rdata = {"department":department, "data": data}
     return Rdata
 
