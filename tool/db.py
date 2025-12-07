@@ -7,8 +7,8 @@ import pandas as pd
 import urllib.parse as urlparse
 import time
 
-from funcion import get_table_data
-from funcion import get_a_link
+from function import get_table_data
+from function import get_a_link
 from dotenv import load_dotenv
 
 
