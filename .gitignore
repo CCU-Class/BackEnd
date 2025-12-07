@@ -4,3 +4,5 @@ tool/__pycache__
 # venv
 tool/ccuclass
 dev/mysqldb
+tool/*.xlsx
+.venv/*
