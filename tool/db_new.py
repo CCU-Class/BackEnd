@@ -90,6 +90,8 @@ try:
             teacher = row['授課教師'].strip()
             class_time = row['上課時間'].strip()
             class_room = row['上課教室'].strip()
+            
+            teacher = teacher.replace(',', ' ')  # 將逗號替換成空格
 
             # 3. 測試模式：印出資料並跳過後續 SQL
             if args.test:
