@@ -25,7 +25,7 @@ const model = {
     },
     async updateSelectionCount(course, num, courseTable){
         let table = courseTable || process.env.MYSQL_COURSE_TABLE;
-        let id = Number(course.id);
+        let id = course.id;
         let teacher = course.teacher;
         //let str = `UPDATE \`${table}\` SET \`selection_count\`=\`selection_count\`+${num} WHERE \`id\`= ${id} and \`teacher\`='${teacher}';`;
         let str = "update ?? set `selection_count` = \`selection_count\` + ? where \`id\`=? and \`teacher\`=?;";
