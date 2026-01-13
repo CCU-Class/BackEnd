@@ -64,9 +64,9 @@ WeekDayToInt = {
 }
 
 function splittime(time) {
+  time.trim();
   let store = time.split(" ");
   // console.log(store);
-  store.splice(0, 1);
 
   let arr = [];
   for (let i = 0; i < store.length; i++) {
