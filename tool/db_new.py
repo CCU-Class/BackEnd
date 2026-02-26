@@ -82,7 +82,7 @@ try:
     for index, row in df.iterrows():
         try:
             # 資料清洗與變數對應
-            grade = row['年級'].strip()
+            grade = row['年級/向度'].strip()
             department = row['開課單位'].strip()
             course_id = row['科碼'].strip()
             class_name = row['科目名稱'].strip().split('\n')[0]  # 只取科目名稱的第一部分
